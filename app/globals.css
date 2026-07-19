@@ -1,0 +1,516 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =========================================
+   KNOTS SYSTEMS — DESIGN SYSTEM v2
+   Premium Minimal — Apple / Linear / Vercel
+   ========================================= */
+
+:root {
+  --bg-primary: #050505;
+  --bg-secondary: #0a0a0a;
+  --bg-card: #0f0f0f;
+  --bg-card-hover: #141414;
+  --accent-green: #00e6a8;
+  --accent-blue: #00b8ff;
+  --text-primary: #f0f0f0;
+  --text-secondary: #888;
+  --text-tertiary: #444;
+  --border: #1a1a1a;
+  --border-hover: #282828;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.5);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.6);
+  --shadow-lg: 0 12px 40px rgba(0,0,0,0.7);
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+  --radius-pill: 999px;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: auto;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  overflow-x: hidden;
+  cursor: none !important;
+}
+
+/* Force hide native cursor everywhere */
+*, *::before, *::after, a, button, input, select, textarea {
+  cursor: none !important;
+}
+
+/* =========================================
+   CUSTOM CURSOR — Fast, instant, no lag
+   ========================================= */
+
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  background: var(--accent-green);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 10000;
+  transform: translate(-50%, -50%);
+  /* NO transition — pure instant follow */
+  will-change: left, top;
+}
+
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 28px;
+  height: 28px;
+  border: 1px solid rgba(0, 230, 168, 0.4);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  /* Very minimal lag — feels premium not sluggish */
+  will-change: left, top;
+}
+
+/* =========================================
+   NAVBAR — Solid matte black, minimal
+   ========================================= */
+
+.nav-wrapper {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  width: calc(100% - 80px);
+  max-width: 1200px;
+}
+
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 18px;
+  background: #0a0a0a;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.5);
+  transition: border-color 0.3s ease;
+}
+
+.nav-inner.scrolled {
+  border-color: #222;
+  box-shadow: 0 4px 32px rgba(0,0,0,0.7);
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  text-decoration: none;
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: -0.02em;
+  flex-shrink: 0;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  list-style: none;
+}
+
+.nav-links a {
+  display: block;
+  padding: 6px 12px;
+  font-size: 13.5px;
+  font-weight: 450;
+  color: var(--text-secondary);
+  text-decoration: none;
+  border-radius: var(--radius-md);
+  transition: color 0.2s ease;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--text-primary);
+}
+
+.nav-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: var(--accent-green);
+  border: none;
+  border-radius: var(--radius-pill);
+  color: #000;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  flex-shrink: 0;
+  cursor: none;
+}
+
+.nav-cta:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+/* =========================================
+   BUTTONS — Premium minimal
+   ========================================= */
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 26px;
+  background: #092e1b;
+  border: 1px solid #144030;
+  border-radius: var(--radius-lg);
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  transition: background 0.25s ease, border-color 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.btn-primary:hover {
+  background: #0d3b23;
+  border-color: #1c523f;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 26px;
+  background: #111;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  color: var(--text-primary);
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  cursor: none;
+  transition: background 0.25s ease, border-color 0.25s ease, transform 0.2s ease;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.btn-secondary:hover {
+  background: #181818;
+  border-color: var(--border-hover);
+  transform: translateY(-2px);
+}
+
+.btn-secondary:active {
+  transform: translateY(0);
+}
+
+/* =========================================
+   CARDS — Matte black, minimal elevation
+   ========================================= */
+
+.card-glass {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  transition: background 0.25s ease, border-color 0.25s ease, transform 0.3s var(--ease-out), box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.card-glass:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border-hover);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  transform: translateY(-3px);
+}
+
+/* =========================================
+   PANELS
+   ========================================= */
+
+.glass {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+}
+
+.glass-panel {
+  background: #0c0c0c;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
+}
+
+.glass-nav {
+  background: #0a0a0a;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+}
+
+/* =========================================
+   TYPOGRAPHY
+   ========================================= */
+
+.text-hero {
+  font-size: clamp(44px, 6.5vw, 88px);
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+  color: var(--text-primary);
+}
+
+.text-section-title {
+  font-size: clamp(32px, 3.5vw, 54px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: var(--text-primary);
+}
+
+.text-card-title {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+}
+
+.text-body {
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.75;
+  color: var(--text-secondary);
+}
+
+.text-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, var(--accent-green) 0%, var(--accent-blue) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* =========================================
+   BADGES
+   ========================================= */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  background: #111;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.badge-green {
+  background: rgba(0, 230, 168, 0.08);
+  border-color: rgba(0, 230, 168, 0.18);
+  color: var(--accent-green);
+}
+
+/* =========================================
+   LAYOUT
+   ========================================= */
+
+.section-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 48px;
+}
+
+.section-padding {
+  padding-top: 120px;
+  padding-bottom: 120px;
+}
+
+/* =========================================
+   TRUST BADGES (hero)
+   ========================================= */
+
+.trust-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 14px;
+  background: #0f0f0f;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  font-size: 13px;
+  font-weight: 450;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+/* =========================================
+   SCROLL INDICATOR
+   ========================================= */
+
+@keyframes scroll-indicator-anim {
+  0% { opacity: 0.7; transform: scaleY(1) translateY(0); }
+  60% { opacity: 0.3; }
+  100% { opacity: 0; transform: scaleY(1) translateY(14px); }
+}
+
+.scroll-thread {
+  width: 1px;
+  height: 36px;
+  background: linear-gradient(to bottom, transparent, rgba(0, 230, 168, 0.6));
+  animation: scroll-indicator-anim 2s ease-in-out infinite;
+}
+
+/* =========================================
+   LOADING SCREEN
+   ========================================= */
+
+.loading-screen {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+}
+
+/* =========================================
+   TIMELINE
+   ========================================= */
+
+.timeline-node {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #222;
+  border: 1px solid #2a2a2a;
+  transition: all 0.4s ease;
+  flex-shrink: 0;
+}
+
+.timeline-node.active {
+  background: var(--accent-green);
+  border-color: var(--accent-green);
+  box-shadow: 0 0 10px rgba(0, 230, 168, 0.4);
+}
+
+/* =========================================
+   PROCESS NODES
+   ========================================= */
+
+.process-dot {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #0f0f0f;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.4s var(--ease-out);
+  flex-shrink: 0;
+}
+
+.process-dot.active {
+  background: rgba(0, 230, 168, 0.08);
+  border-color: rgba(0, 230, 168, 0.3);
+  box-shadow: 0 0 16px rgba(0, 230, 168, 0.15);
+}
+
+/* =========================================
+   RESPONSIVE
+   ========================================= */
+
+@media (max-width: 1024px) {
+  .nav-links { display: none; }
+  .nav-wrapper { width: calc(100% - 40px); }
+  .section-container { padding: 0 32px; }
+}
+
+@media (max-width: 768px) {
+  .nav-wrapper { width: calc(100% - 32px); top: 12px; }
+  .section-container { padding: 0 20px; }
+  .section-padding { padding-top: 72px; padding-bottom: 72px; }
+  body { cursor: auto; }
+  .cursor-dot, .cursor-ring { display: none; }
+}
+
+/* =========================================
+   SELECTION & SCROLLBAR
+   ========================================= */
+
+::selection {
+  background: rgba(0, 230, 168, 0.15);
+  color: var(--text-primary);
+}
+
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb { background: #222; border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: #333; }
+
+/* =========================================
+   REDUCED MOTION
+   ========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
