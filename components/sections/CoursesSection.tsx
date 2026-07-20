@@ -2,6 +2,8 @@
 
 import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 const course = {
   id: "ai-foundations",
@@ -9,12 +11,12 @@ const course = {
   duration: "15 Days",
   status: "Available Now",
   description:
-    "Master modern Artificial Intelligence from the ground up through a structured, project-based curriculum. Learn Python programming, computational thinking, search algorithms, knowledge representation, probability, optimization, machine learning, neural networks, natural language processing, prompt engineering, Generative AI, Large Language Models, Retrieval-Augmented Generation (RAG), vector databases, AI agents, function calling, responsible AI, and deploy real AI applications through guided implementation.",
+    "Master modern Artificial Intelligence from the ground up through a structured, implementation-first curriculum. Learn:\n\n• Python • Computational Thinking • Search Algorithms • Knowledge Representation • Probability • Optimization • Machine Learning • Neural Networks • NLP • Prompt Engineering • Generative AI • Large Language Models • RAG • Vector Databases • AI Agents • Function Calling • Responsible AI • Real-world AI Applications",
   chips: [
     { text: "Harvard CS50 AI", icon: "harvard" },
-    { text: "Microsoft Generative AI for Beginners", icon: "microsoft" },
+    { text: "Microsoft Generative AI", icon: "microsoft" },
     { text: "Daily Implementation", icon: "check" },
-    { text: "Final Capstone Project", icon: "check" },
+    { text: "Final Capstone", icon: "check" },
     { text: "Industry Certificate", icon: "check" },
   ],
 };
@@ -53,31 +55,13 @@ export default function CoursesSection() {
           transition={{ duration: 0.5, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
         >
           <div
-            role="button"
-            tabIndex={0}
             style={{
               background: "#0c0c0c",
               border: "1px solid #1a1a1a",
               borderRadius: 16,
               padding: "48px 56px",
-              cursor: "pointer",
-              transition: "background 0.2s ease, border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease",
               textAlign: "left",
               display: "block",
-            }}
-            onMouseEnter={(e) => {
-              const el = e.currentTarget;
-              el.style.background = "#111";
-              el.style.borderColor = "#262626";
-              el.style.transform = "translateY(-2px)";
-              el.style.boxShadow = "0 8px 30px rgba(0,0,0,0.6)";
-            }}
-            onMouseLeave={(e) => {
-              const el = e.currentTarget;
-              el.style.background = "#0c0c0c";
-              el.style.borderColor = "#1a1a1a";
-              el.style.transform = "translateY(0)";
-              el.style.boxShadow = "none";
             }}
           >
             {/* Top row */}
@@ -104,7 +88,7 @@ export default function CoursesSection() {
                   fontWeight: 500,
                   padding: "6px 14px",
                   borderRadius: 999,
-                  background: "#00E6A8",
+                  background: "#10B981", // Emerald accent
                   color: "#000",
                   letterSpacing: "-0.01em",
                 }}
@@ -114,12 +98,12 @@ export default function CoursesSection() {
             </div>
 
             {/* Description */}
-            <p style={{ fontSize: 15, color: "#888", lineHeight: 1.8, marginBottom: 36, maxWidth: 700 }}>
+            <p style={{ fontSize: 15, color: "#888", lineHeight: 1.8, marginBottom: 36, maxWidth: 700, whiteSpace: "pre-wrap" }}>
               {course.description}
             </p>
 
             {/* Metadata chips */}
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 10, marginBottom: 48 }}>
               {course.chips.map((chip, idx) => (
                 <div
                   key={idx}
@@ -155,6 +139,28 @@ export default function CoursesSection() {
                 </div>
               ))}
             </div>
+
+            {/* CTA Button */}
+            <Link 
+              href="/AIEF"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 8,
+                background: "#f0f0f0",
+                color: "#050505",
+                padding: "12px 24px",
+                borderRadius: 8,
+                fontSize: 14,
+                fontWeight: 500,
+                textDecoration: "none",
+                transition: "opacity 0.2s ease",
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.opacity = "0.9"}
+              onMouseLeave={(e) => e.currentTarget.style.opacity = "1"}
+            >
+              Enter Course <ArrowRight size={16} />
+            </Link>
           </div>
         </motion.div>
       </div>

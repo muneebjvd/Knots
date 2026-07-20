@@ -498,6 +498,18 @@ body {
   color: var(--text-primary);
 }
 
+/* =========================================
+   MARKDOWN VIEWER TABLES
+   ========================================= */
+
+.markdown-tbody tr:nth-child(even) {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.markdown-tbody tr:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
 ::-webkit-scrollbar { width: 3px; }
 ::-webkit-scrollbar-track { background: var(--bg-primary); }
 ::-webkit-scrollbar-thumb { background: #222; border-radius: 2px; }
