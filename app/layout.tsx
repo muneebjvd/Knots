@@ -10,11 +10,16 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Knots Systems",
-  description: "The future of engineering education. Build real systems.",
+  metadataBase: new URL("https://knots.systems"),
+  title: "Knots Systems | AI Engineering Foundations",
+  description: "The future of engineering education. Build real systems, learn Artificial Intelligence, and master computer science fundamentals through hands-on projects.",
+  keywords: ["Knots Systems", "AI Engineering Foundations", "Learn AI", "Software Engineering", "Muneeb", "Developer Education", "Coding Platform"],
+  authors: [{ name: "Knots Systems" }],
   openGraph: {
-    title: "Knots Systems",
-    description: "The future of engineering education. Build real systems.",
+    title: "Knots Systems | AI Engineering Foundations",
+    description: "The future of engineering education. Build real systems, learn Artificial Intelligence, and master computer science fundamentals.",
+    url: "https://knots.systems",
+    siteName: "Knots Systems",
     type: "website",
   },
   twitter: {
