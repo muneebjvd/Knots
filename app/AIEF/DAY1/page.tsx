@@ -593,11 +593,175 @@ Exactly like Part 3: the recursive Minimax skeleton never changes. Every new two
 `;
 
 // ─────────────────────────────────────────────────────────────────────────────
+// Example 1
+// ─────────────────────────────────────────────────────────────────────────────
+const example1 = `
+## Example 1 — Friend Network (BFS Shortest Path)
+
+The same Node/Frontier code from the maze — zero changes — applied to a social graph.
+
+\`\`\`python
+# Graph represented as adjacency list
+graph = {
+    "Alice":  ["Bob", "Carol"],
+    "Bob":    ["Alice", "Dave"],
+    "Carol":  ["Alice", "Eve"],
+    "Dave":   ["Bob", "Frank"],
+    "Eve":    ["Carol", "Frank"],
+    "Frank":  ["Dave", "Eve"],
+}
+
+class Node:
+    def __init__(self, state, parent, action):
+        self.state  = state
+        self.parent = parent
+        self.action = action
+
+def build_path(node):
+    path = []
+    while node.parent:
+        path.append(node.state)
+        node = node.parent
+    path.reverse()
+    return path
+
+class QueueFrontier:
+    def __init__(self):
+        self.frontier = []
+    def add(self, node):
+        self.frontier.append(node)
+    def contains_state(self, state):
+        return any(n.state == state for n in self.frontier)
+    def empty(self):
+        return len(self.frontier) == 0
+    def remove(self):
+        node = self.frontier[0]
+        self.frontier = self.frontier[1:]
+        return node
+
+def search(start, goal, Frontier):
+    frontier = Frontier()
+    frontier.add(Node(start, None, None))
+    explored = set()
+
+    while not frontier.empty():
+        node = frontier.remove()
+        if node.state == goal:
+            return build_path(node)
+        explored.add(node.state)
+        for neighbor in graph[node.state]:
+            if neighbor not in explored and not frontier.contains_state(neighbor):
+                frontier.add(Node(neighbor, node, neighbor))
+    return None
+
+path = search("Alice", "Frank", QueueFrontier)
+print(path)   # ['Carol', 'Eve', 'Frank']  or  ['Bob', 'Dave', 'Frank']
+\`\`\`
+
+**What changed vs. the maze, and what didn't:**
+
+| | Maze | Friend network |
+|---|---|---|
+| State | \`(row, col)\` tuple | person's name (string) |
+| \`actions()\` | check 4 grid neighbors | look up \`graph[state]\` |
+| \`Node\`, \`search()\`, \`build_path()\` | — | **identical, untouched** |
+
+The algorithm is completely reusable — you only swap out the graph definition.
+`;
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Example 2
+// ─────────────────────────────────────────────────────────────────────────────
+const example2 = `
+## Example 2 — Stone Game (Minimax)
+
+Two players alternate taking 1 or 2 stones. The player who takes the last stone wins. Minimax solves it perfectly.
+
+\`\`\`python
+def initial_state(n):
+    return (n, "A")       # (stones_remaining, whose_turn)
+
+def player(state):
+    return state[1]
+
+def actions(state):
+    stones = state[0]
+    return [m for m in [1, 2] if m <= stones]
+
+def result(state, action):
+    stones, turn = state
+    return (stones - action, "B" if turn == "A" else "A")
+
+def terminal(state):
+    return state[0] == 0
+
+def utility(state, winner):
+    last_mover = "B" if player(state) == "A" else "A"
+    return 1 if last_mover == winner else -1
+
+def minimax(state):
+    if player(state) == "A":   # maximiser
+        best_value, best_move = -float("inf"), None
+        for action in actions(state):
+            value = min_value(result(state, action))
+            if value > best_value:
+                best_value, best_move = value, action
+    else:
+        best_value, best_move = float("inf"), None
+        for action in actions(state):
+            value = max_value(result(state, action))
+            if value < best_value:
+                best_value, best_move = value, action
+    return best_move
+
+def max_value(state):
+    if terminal(state):
+        return utility(state, "B" if player(state) == "A" else "A")
+    v = -float("inf")
+    for action in actions(state):
+        v = max(v, min_value(result(state, action)))
+    return v
+
+def min_value(state):
+    if terminal(state):
+        return utility(state, "B" if player(state) == "A" else "A")
+    v = float("inf")
+    for action in actions(state):
+        v = min(v, max_value(result(state, action)))
+    return v
+
+# Run the game
+state = initial_state(7)
+while not terminal(state):
+    move = minimax(state)
+    print(f"Player {player(state)} takes {move} stone(s), {state[0] - move} left")
+    state = result(state, move)
+
+winner = "B" if player(state) == "A" else "A"
+print("Winner:", winner)
+\`\`\`
+
+**What changed vs. Tic-Tac-Toe, and what didn't:**
+
+| | Tic-Tac-Toe | Stone game |
+|---|---|---|
+| State | 3x3 board | \`(stones_remaining, turn)\` tuple |
+| \`actions()\` | empty cells | \`[1, 2]\` filtered by what's left |
+| \`result()\` | place mark, deepcopy board | subtract stones, switch turn |
+| \`terminal()\` | 3-in-a-row or board full | \`stones == 0\` |
+| \`utility()\` | check who made 3-in-a-row | check who took the last stone |
+| \`minimax()\`, \`max_value()\`, \`min_value()\` | — | **identical shape, untouched** |
+
+The Minimax skeleton never changes. Every new two-player game just needs its own four functions — write those and Minimax works immediately.
+`;
+
+// ─────────────────────────────────────────────────────────────────────────────
 // Page
 // ─────────────────────────────────────────────────────────────────────────────
 export default function Day1Page() {
   const router = useRouter();
   const [isAuthorized, setIsAuthorized] = useState(false);
+  const [activeTab, setActiveTab] = useState<"notes" | "project" | "example1" | "example2">("notes");
   
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 200, damping: 40, restDelta: 0.001 });
@@ -755,7 +919,7 @@ export default function Day1Page() {
             />
           </div>
 
-          {/* Implementation Notes */}
+          {/* Implementation Notes + Tabs */}
           <div id="notes" style={{ marginTop: 80, scrollMarginTop: 72 }}>
             <h2
               style={{
@@ -772,6 +936,42 @@ export default function Day1Page() {
               No theory. Just how to build it.
             </p>
 
+            {/* Tab Switcher */}
+            <div
+              style={{
+                display: "flex",
+                gap: 4,
+                marginBottom: 24,
+                background: "#0c0c0c",
+                border: "1px solid rgba(255,255,255,0.06)",
+                borderRadius: 12,
+                padding: 4,
+                width: "fit-content",
+              }}
+            >
+              {(["notes", "project", "example1", "example2"] as const).map((tab) => (
+                <button
+                  key={tab}
+                  onClick={() => setActiveTab(tab)}
+                  style={{
+                    padding: "8px 20px",
+                    borderRadius: 8,
+                    border: "none",
+                    cursor: "pointer",
+                    fontSize: 12,
+                    fontWeight: 600,
+                    fontFamily: "monospace",
+                    letterSpacing: "0.08em",
+                    transition: "all 0.15s ease",
+                    background: activeTab === tab ? "#10B981" : "transparent",
+                    color: activeTab === tab ? "#000000" : "#52525b",
+                  }}
+                >
+                  {tab === "notes" ? "NOTES" : tab === "project" ? "PROJECT" : tab === "example1" ? "EXAMPLE 1" : "EXAMPLE 2"}
+                </button>
+              ))}
+            </div>
+
             <div
               style={{
                 background: "#0c0c0c",
@@ -780,7 +980,14 @@ export default function Day1Page() {
                 padding: "36px 40px",
               }}
             >
-              <MarkdownViewer content={implementationNotes} />
+              <MarkdownViewer
+                content={
+                  activeTab === "notes" ? implementationNotes
+                  : activeTab === "project" ? projectDetails
+                  : activeTab === "example1" ? example1
+                  : example2
+                }
+              />
             </div>
           </div>
 
@@ -806,7 +1013,6 @@ export default function Day1Page() {
                 display: "grid",
                 gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
                 gap: 16,
-                marginBottom: 40,
               }}
             >
               <ProjectCard
@@ -819,17 +1025,6 @@ export default function Day1Page() {
                 description="Build an AI opponent using Minimax and Alpha-Beta Pruning that can never lose a game of Tic Tac Toe."
                 skills={["Game Trees", "Minimax", "Alpha-Beta", "Evaluation Fn", "Game AI"]}
               />
-            </div>
-
-            <div
-              style={{
-                background: "#0c0c0c",
-                border: "1px solid rgba(255,255,255,0.06)",
-                borderRadius: 16,
-                padding: "36px 40px",
-              }}
-            >
-              <MarkdownViewer content={projectDetails} />
             </div>
           </div>
 
