@@ -99,7 +99,32 @@ Response: Negative
 
 ---
 
-## 4. Retrieval Augmented Generation (RAG)
+## 4. Advanced Prompting Techniques
+
+When simple prompting fails on complex logic, you need advanced techniques to guide the model's reasoning.
+
+### Chain of Thought (CoT)
+LLMs cannot "think" internally before answering. By explicitly asking the model to write out its step-by-step reasoning, you give it "scratchpad" space to arrive at the correct answer.
+\`\`\`text
+Prompt: A farmer has 15 sheep. All but 8 die. How many are left? 
+Think step-by-step before answering.
+
+Response: 
+1. The farmer starts with 15 sheep.
+2. The phrase "all but 8 die" means that exactly 8 sheep survived.
+3. Therefore, 8 sheep are left.
+\`\`\`
+
+### Output Formatting
+When building apps, you need the LLM to return structured data (like JSON), not conversational text.
+\`\`\`text
+Prompt: Extract the names and ages from the text: "John is 25 and Sarah is 30."
+Return ONLY a valid JSON array of objects with keys 'name' and 'age'. Do not include markdown formatting.
+\`\`\`
+
+---
+
+## 5. Retrieval Augmented Generation (RAG)
 
 LLMs have a fatal flaw: they don't know your private company data, and they will confidently hallucinate facts they don't know.
 
@@ -127,7 +152,32 @@ response = llm.generate(prompt)
 
 ---
 
-## 5. Responsible AI & Safety
+## 6. Building AI Applications
+
+To actually build a product, you interact with the LLM programmatically via an API, not a web interface.
+
+\`\`\`python
+import os
+from openai import OpenAI
+
+# Initialize the client with your API key
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+
+response = client.chat.completions.create(
+    model="gpt-4o",
+    messages=[
+        {"role": "system", "content": "You are a helpful assistant that only speaks in JSON."},
+        {"role": "user", "content": "Who won the World Series in 2020?"}
+    ],
+    temperature=0.0 # Deterministic output
+)
+
+print(response.choices[0].message.content)
+\`\`\`
+
+---
+
+## 7. Responsible AI & Safety
 
 Generative AI poses significant product and societal risks that must be engineered away:
 - **Hallucinations**: Stating false information with absolute confidence.
