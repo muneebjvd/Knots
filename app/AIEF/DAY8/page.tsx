@@ -193,70 +193,58 @@ When building AI applications, you cannot rely on the model to behave. You must 
 `;
 
 const projectDetails = `
-## Part 2 — Mini Project: Building an AI Startup
+## Part 2 — Mini Project: Building AI Apps
 
 \`\`\`plaintext
 day8_project/
-├── business_plan.md        # Startup concept and AI integration
-├── system_prompts.py       # Core prompt engineering
-└── safety_evaluator.py     # Harm mitigation logic
+├── .env                    # Secure your API keys
+├── recipe_generator.py     # Multi-turn text generation app
+└── study_buddy.py          # Instruction-tuned tutor
 \`\`\`
 
 ---
 
-### Part A — \`business_plan.md\`
+### Part A — Secure Setup (\`.env\`)
 
-Define a startup that uses Generative AI to solve a specific problem in the education domain.
-Write a brief summary answering:
-1. **Problem**: What educational gap are you solving?
-2. **How I would use AI**: Specifically, what model type (Text, Vision, Audio) and architecture (Proprietary vs Open-Source)?
-3. **Impact**: How does this improve upon the "old way"?
+Never hardcode API keys in your code. Use \`python-dotenv\` to load them securely.
+
+\`\`\`python
+# .env
+OPENAI_API_KEY=sk-your_api_key_here
+
+# In your python scripts:
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+api_key = os.getenv("OPENAI_API_KEY")
+\`\`\`
 
 ---
 
-### Part B — \`system_prompts.py\`
+### Part B — \`recipe_generator.py\`
 
-Write the core system prompts for your AI agent using few-shot learning and strict constraints.
+Build an application that takes a list of ingredients, generates recipes, and then follows up by generating a shopping list for the missing ingredients.
+
+1. Prompt the user for ingredients (e.g., "apple, flour").
+2. Call the LLM API to generate 2 recipes using those ingredients.
+3. Take the LLM's response, append a new instruction: *"Produce a shopping list for the generated recipes excluding the ingredients I already have."*, and call the API again.
+
+---
+
+### Part C — \`study_buddy.py\`
+
+Build a conversational "Study Buddy" for a specific topic (e.g., Python or History). 
+Use **System Prompts** to lock the agent into its persona.
 
 \`\`\`python
-# TODO: Write a system prompt that defines the persona of your AI tutor
-SYSTEM_PROMPT = """
-You are an expert physics tutor. 
-Rule 1: Never give the direct answer. Always guide the student with a hint.
-Rule 2: Keep responses under 3 sentences.
-"""
-
-# TODO: Add 3 few-shot examples to ensure the model follows Rule 1
-FEW_SHOT_EXAMPLES = [
-    {"role": "user", "content": "What is the answer to 5 * 10?"},
-    {"role": "assistant", "content": "What happens when you add 10 together 5 times?"},
-    # Add your examples here
+# Example Persona Setup
+messages = [
+    {"role": "system", "content": "You are Abe Lincoln. Respond using grammar and words like Abe would have used."},
+    {"role": "user", "content": "Tell me about your greatest accomplishments in 3 sentences."}
 ]
 \`\`\`
-
----
-
-### Part C — \`safety_evaluator.py\`
-
-Implement a basic safety filter that checks user inputs before sending them to the LLM.
-
-\`\`\`python
-BANNED_TOPICS = ["cheat", "hack", "bypass", "violence", "plagiarize"]
-
-def is_safe_prompt(user_input: str) -> bool:
-    # TODO: Implement safety check logic. 
-    # Return False if any word in BANNED_TOPICS appears in user_input
-    pass
-
-def generate_response(user_input: str):
-    if not is_safe_prompt(user_input):
-        return "I cannot assist with that request."
-    
-    # Normally we would call an LLM API here
-    return "Response generated successfully."
-
-# TODO: Test your evaluator with 2 safe prompts and 2 unsafe prompts
-\`\`\`
+Experiment with different \`Temperature\` settings (0.1 vs 0.9) to see how Abe's creativity changes.
 `;
 
 const example1 = `
@@ -413,10 +401,10 @@ export default function Day8Page() {
 
           <div id="projects" style={{ marginTop:100, scrollMarginTop:72 }}>
             <h2 style={{ fontSize:20, fontWeight:700, color:"#fff", letterSpacing:"-0.02em", marginBottom:6 }}>Day 8 Project</h2>
-            <p style={{ fontSize:13.5, color:"#52525b", marginBottom:28 }}>Design a generative AI product and implement safety limits.</p>
+            <p style={{ fontSize:13.5, color:"#52525b", marginBottom:28 }}>Build Generative AI applications with the OpenAI API.</p>
             <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit, minmax(280px, 1fr))", gap:16 }}>
-              <ProjectCard title="AI Startup Design" description="Design a generative AI product for the education domain. Define the problem, how AI uniquely solves it, and how you will handle hallucination risks." skills={["Product Design","Risk Mitigation","Generative AI"]} />
-              <ProjectCard title="System Prompts & Safety" description="Write robust system prompts to control an LLM persona, use few-shot examples to enforce constraints, and write a Python safety filter to block banned topics." skills={["Prompt Engineering","Few-Shot Learning","Metaprompting","Safety Filters"]} />
+              <ProjectCard title="Recipe & Shopping List Generator" description="Build a multi-turn application that generates recipes based on ingredients, then dynamically prompts the LLM again to extract a shopping list of missing items." skills={["OpenAI API", "Multi-turn Prompting", "Dotenv"]} />
+              <ProjectCard title="Persona Study Buddy" description="Build an instruction-tuned tutor using System Prompts. Experiment with the Temperature parameter to alter the AI's creativity and tone." skills={["System Prompts", "Temperature Tuning", "Personas"]} />
             </div>
           </div>
 
