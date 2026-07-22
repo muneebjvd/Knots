@@ -7,6 +7,7 @@ import Link from "next/link";
 
 const VALID_KEYS: Record<string, string> = {
   "KDc0niZOUP9d4Vtb": "/AIEF/DAY1",
+  "Lm9pXqR2sT7nYcVw": "/AIEF/DAY2",
 };
 
 export default function AccessGatePage() {
@@ -18,8 +19,9 @@ export default function AccessGatePage() {
 
   useEffect(() => {
     setTimeout(() => inputRef.current?.focus(), 100);
-    // Reset unlock state when visiting the gate page
+    // Reset all unlock states when visiting the gate page
     sessionStorage.removeItem("aief_unlocked_day1");
+    sessionStorage.removeItem("aief_unlocked_day2");
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -29,8 +31,9 @@ export default function AccessGatePage() {
     if (targetRoute) {
       setError(false);
       setLoading(true);
-      // Save unlock state
-      sessionStorage.setItem("aief_unlocked_day1", "1");
+      // Save unlock state based on which day is being unlocked
+      if (targetRoute === "/AIEF/DAY1") sessionStorage.setItem("aief_unlocked_day1", "1");
+      if (targetRoute === "/AIEF/DAY2") sessionStorage.setItem("aief_unlocked_day2", "1");
       router.push(targetRoute);
     } else {
       setError(true);
