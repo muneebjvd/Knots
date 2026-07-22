@@ -8,6 +8,11 @@ import Link from "next/link";
 const VALID_KEYS: Record<string, string> = {
   "KDc0niZOUP9d4Vtb": "/AIEF/DAY1",
   "Lm9pXqR2sT7nYcVw": "/AIEF/DAY2",
+  "Qr5mK8wL1xNpZ3Vj": "/AIEF/DAY3",
+  "Ht2sB9fGy4TnU6Cw": "/AIEF/DAY4",
+  "Pk7dA0vR3mYeW5Jq": "/AIEF/DAY5",
+  "Fx1nC4bS8zLpQ2Mu": "/AIEF/DAY6",
+  "Yw6gD3kT9rVoH5Bx": "/AIEF/DAY7",
 };
 
 export default function AccessGatePage() {
@@ -20,8 +25,7 @@ export default function AccessGatePage() {
   useEffect(() => {
     setTimeout(() => inputRef.current?.focus(), 100);
     // Reset all unlock states when visiting the gate page
-    sessionStorage.removeItem("aief_unlocked_day1");
-    sessionStorage.removeItem("aief_unlocked_day2");
+    for (let d = 1; d <= 7; d++) sessionStorage.removeItem(`aief_unlocked_day${d}`);
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -32,8 +36,8 @@ export default function AccessGatePage() {
       setError(false);
       setLoading(true);
       // Save unlock state based on which day is being unlocked
-      if (targetRoute === "/AIEF/DAY1") sessionStorage.setItem("aief_unlocked_day1", "1");
-      if (targetRoute === "/AIEF/DAY2") sessionStorage.setItem("aief_unlocked_day2", "1");
+      const dayMatch = targetRoute.match(/DAY(\d+)/);
+      if (dayMatch) sessionStorage.setItem(`aief_unlocked_day${dayMatch[1]}`, "1");
       router.push(targetRoute);
     } else {
       setError(true);
