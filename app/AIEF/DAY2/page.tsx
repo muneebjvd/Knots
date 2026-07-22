@@ -538,36 +538,45 @@ rooms    = [ballroom, library, study]
 Knights always tell the truth. Knaves always lie.
 
 \`\`\`python
-# Symbols
+# Symbols — define one Knight and one Knave symbol per person
 AKnight = Symbol("A is a Knight")
 AKnave  = Symbol("A is a Knave")
 BKnight = Symbol("B is a Knight")
 BKnave  = Symbol("B is a Knave")
 
-# Base knowledge: each person is exactly one type
+# Base knowledge: each person is exactly one type (you must encode this)
 base = And(
-    Or(AKnight, AKnave),
-    Not(And(AKnight, AKnave)),   # can't be both
-    Or(BKnight, BKnave),
-    Not(And(BKnight, BKnave)),
+    # TODO: each person is either a Knight OR a Knave
+    # TODO: each person cannot be BOTH a Knight and a Knave
 )
 
 # Puzzle 1: A says "I am a knave." B says "We are different."
-# If A is a knight, A's statement must be true → A is a knave → contradiction
-# Encode: If AKnight, then the statement is true. If AKnave, it's false.
+# Rule: If a person is a Knight, their statement is TRUE.
+#        If a person is a Knave, their statement is FALSE.
+# Encode each statement as a Biconditional(PersonIsKnight, WhatTheyClaimedIsTrue)
 puzzle1 = And(
     base,
-    Biconditional(AKnight, AKnave),       # A's statement
-    Biconditional(BKnight, Or(
-        And(AKnight, BKnave),
-        And(AKnave, BKnight)
-    )),                                    # B's statement
+    # TODO: encode A's statement
+    # TODO: encode B's statement
 )
 
 print("A is Knight:", model_check(puzzle1, AKnight))
 print("A is Knave: ", model_check(puzzle1, AKnave))
 print("B is Knight:", model_check(puzzle1, BKnight))
 print("B is Knave: ", model_check(puzzle1, BKnave))
+
+# Puzzle 2: A says "We are both knaves." B says nothing.
+puzzle2 = And(
+    base,
+    # TODO: encode A's statement
+)
+
+# Puzzle 3 (challenge): A says "We are the same kind." B says "We are different kinds."
+puzzle3 = And(
+    base,
+    # TODO: encode A's statement
+    # TODO: encode B's statement
+)
 \`\`\`
 `;
 
