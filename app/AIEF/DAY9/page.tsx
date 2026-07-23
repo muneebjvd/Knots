@@ -299,7 +299,7 @@ export default function Day9Page() {
                 </button>
               ))}
             </div>
-            <VideoEmbed src={activeVideo.src} />
+            <VideoEmbed embedSrc={activeVideo.src} title={activeVideo.title} />
             <p className="text-sm text-gray-500 mt-4 text-center">
               Video {activeVideo.id} of {videos.length} • {activeVideo.title}
             </p>
