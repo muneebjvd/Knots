@@ -14,6 +14,7 @@ const VALID_KEYS: Record<string, string> = {
   "Fx1nC4bS8zLpQ2Mu": "/AIEF/DAY6",
   "Yw6gD3kT9rVoH5Bx": "/AIEF/DAY7",
   "Nj8bH4cW2pVqM9Zt": "/AIEF/DAY8",
+  "Xr2tM5vP8jLqC4Hn": "/AIEF/DAY9",
 };
 
 export default function AccessGatePage() {
@@ -26,7 +27,7 @@ export default function AccessGatePage() {
   useEffect(() => {
     setTimeout(() => inputRef.current?.focus(), 100);
     // Reset all unlock states when visiting the gate page
-    for (let d = 1; d <= 8; d++) sessionStorage.removeItem(`aief_unlocked_day${d}`);
+    for (let d = 1; d <= 9; d++) sessionStorage.removeItem(`aief_unlocked_day${d}`);
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
