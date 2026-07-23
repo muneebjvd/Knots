@@ -274,7 +274,7 @@ export default function Day10Page() {
           </Link>
           <div style={{ display:"flex", alignItems:"center", gap:10 }}>
             <span style={{ fontSize:12, color:"#3f3f46", fontFamily:"monospace", letterSpacing:"0.06em" }}>AI Engineering Foundations</span>
-            <span style={{ fontSize:11, fontWeight:600, padding:"2px 8px", borderRadius:4, background:"#00E5FF", color:"#000" }}>DAY 10</span>
+            <span style={{ fontSize:11, fontWeight:600, padding:"2px 8px", borderRadius:4, background:"#10B981", color:"#000" }}>DAY 10</span>
           </div>
         </div>
       </nav>
