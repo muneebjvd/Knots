@@ -345,8 +345,14 @@ export default function Day9Page() {
             </div>
           </div>
 
-          <PremiumWarning />
-          <GitHubSubmit dayNumber={9} />
+          <PremiumWarning title="Build Responsibly">
+            <p>Every application you build today touches multiple modalities — images, embeddings, function calls. Each one is a new attack surface.</p>
+            <p>Always use metaprompts, safety filters, and content policies. Never expose raw LLM outputs to users without a validation layer.</p>
+            <p style={{ fontWeight: 600, color: "#f0f0f0", marginTop: 8 }}>Great engineers ship safely. Build the guardrails first.</p>
+          </PremiumWarning>
+          <div id="submit" style={{ marginTop: 80, scrollMarginTop: 72 }}>
+            <GitHubSubmit format="DAY9_{ROLLNUM}" example="DAY9_KAIEF2601" />
+          </div>
         </div>
       </div>
     </div>
