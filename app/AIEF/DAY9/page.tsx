@@ -153,7 +153,7 @@ day9_project/
 Build an application that allows students to search through AI YouTube video transcripts using Semantic Search.
 
 1. Provision an Azure OpenAI resource and deploy the \`text-embedding-ada-002\` model.
-2. Load the provided JSON index containing 3-minute YouTube transcript chunks.
+2. Create a dummy JSON index containing 3-minute YouTube transcript chunks (or scrape your own).
 3. Take a user's query, convert it to a vector, calculate **Cosine Similarity** against all stored vectors, and return the top 3 most relevant video timestamps.
 
 ---

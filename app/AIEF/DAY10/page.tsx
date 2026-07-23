@@ -149,7 +149,7 @@ day10_project/
 Build a production-ready RAG application that includes safety guardrails.
 
 1. Create a Vector Database (local using \`scikit-learn NearestNeighbors\` or cloud).
-2. Embed the provided internal HR policies document.
+2. Embed a sample HR policies text document (you can create a simple 'policies.txt' with dummy rules).
 3. Before searching the database, run the user's query through a lightweight **Prompt Injection filter**.
 4. Retrieve the context, generate the response, and run the output through a **Toxicity filter** before displaying it.
 
@@ -170,7 +170,7 @@ Build a multi-agent system using Microsoft AutoGen to solve a coding problem.
 
 Prepare a dataset to fine-tune a small open-source model (like Llama 3 8B) for a specific tone.
 
-1. Write a script that takes a CSV of standard customer support responses.
+1. Write a script that takes a sample CSV of standard customer support responses (create a simple one with 5-10 rows).
 2. Format them into the specific JSONL structure required by Hugging Face \`SFTTrainer\` (Instruction, Context, Response).
 `;
 
