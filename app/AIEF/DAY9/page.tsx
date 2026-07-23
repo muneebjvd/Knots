@@ -277,7 +277,7 @@ export default function Day9Page() {
 
   useEffect(() => {
     const unlocked = sessionStorage.getItem("aief_unlocked_day9");
-    if (unlocked !== "true") { router.push("/AIEF"); } else { setIsAuthorized(true); }
+    if (unlocked !== "1") { router.push("/AIEF"); } else { setIsAuthorized(true); }
   }, [router]);
 
   if (!isAuthorized) return <div style={{ minHeight: "100vh", backgroundColor: "#090909" }} />;
@@ -295,7 +295,7 @@ export default function Day9Page() {
           </Link>
           <div style={{ display:"flex", alignItems:"center", gap:10 }}>
             <span style={{ fontSize:12, color:"#3f3f46", fontFamily:"monospace", letterSpacing:"0.06em" }}>AI Engineering Foundations</span>
-            <span style={{ fontSize:11, fontWeight:600, padding:"2px 8px", borderRadius:4, background:"#10B981", color:"#000" }}>DAY 9</span>
+            <span style={{ fontSize:11, fontWeight:600, padding:"2px 8px", borderRadius:4, background:"#CCFF00", color:"#000" }}>DAY 9</span>
           </div>
         </div>
       </nav>
