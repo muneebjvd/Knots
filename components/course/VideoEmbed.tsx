@@ -3,9 +3,10 @@ import React from "react";
 interface VideoEmbedProps {
   embedSrc: string;
   title?: string;
+  source?: string;
 }
 
-export function VideoEmbed({ embedSrc, title = "Course Video" }: VideoEmbedProps) {
+export function VideoEmbed({ embedSrc, title = "Course Video", source = "Harvard CS50 AI" }: VideoEmbedProps) {
   return (
     <div id="video" style={{ scrollMarginTop: 120 }}>
       <h2
@@ -61,7 +62,7 @@ export function VideoEmbed({ embedSrc, title = "Course Video" }: VideoEmbedProps
       >
         <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
           <span style={{ color: "#52525B" }}>Source</span>
-          <span style={{ color: "#ffffff" }}>Harvard CS50 AI</span>
+          <span style={{ color: "#ffffff" }}>{source}</span>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
           <span style={{ color: "#52525B" }}>Duration</span>

@@ -384,7 +384,7 @@ export default function Day8Page() {
             </div>
             
             <div style={{ background: "#000", padding: 8, borderRadius: 16, border: "1px solid rgba(255,255,255,0.05)" }}>
-              <VideoEmbed embedSrc={courseVideos[activeVideo].src} title={courseVideos[activeVideo].title} />
+              <VideoEmbed embedSrc={courseVideos[activeVideo].src} title={courseVideos[activeVideo].title} source="Microsoft Developer" />
             </div>
           </div>
 
