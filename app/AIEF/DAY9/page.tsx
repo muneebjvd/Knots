@@ -249,11 +249,11 @@ export default function Day9Page() {
                 <button
                   key={vid.id}
                   onClick={() => setActiveVideo(vid)}
-                  className={\`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 \${
+                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
                     activeVideo.id === vid.id
                       ? "bg-indigo-500 text-white shadow-lg shadow-indigo-500/25"
                       : "bg-[#18181b] text-gray-400 hover:bg-[#27272a] hover:text-white"
-                  }\`}
+                  }`}
                 >
                   {vid.title}
                 </button>
